@@ -1,0 +1,2339 @@
+backend:
+  name: git-gateway
+  accept_roles:
+    - admin
+    - editor
+  branch: main
+media_folder: theme/assets/images
+public_folder: /assets/images
+collections:
+  - name: pages
+    label: Pages
+    identifier_field: title
+    extension: md
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor: &ref_0
+      preview: false
+    folder: cms/pages
+    fields: &ref_1
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '{{slug}}.html'
+      - &ref_2
+        label: Seo
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - label: Title
+            name: title
+            widget: string
+            required: false
+          - label: Description
+            name: description
+            widget: string
+            required: false
+          - label: No index
+            name: noindex
+            widget: boolean
+            default: false
+            required: false
+          - label: Open Graph Title
+            name: og:title
+            widget: string
+            required: false
+          - label: Open Graph Image
+            name: og:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Twitter Title
+            name: twitter:title
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Card
+            name: twitter:card
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Site
+            name: twitter:site
+            widget: string
+            required: false
+          - label: Twitter Creator
+            name: twitter:creator
+            widget: string
+            required: false
+          - label: Twitter Image
+            name: twitter:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Additional HTML tags
+            name: additional_tags
+            widget: text
+            required: false
+  - name: pages-modules
+    label: Pages modules
+    identifier_field: title
+    extension: md
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor: *ref_0
+    folder: cms/pages/modules
+    fields: *ref_1
+  - name: pages-playground
+    label: Pages playground
+    identifier_field: title
+    extension: md
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor: *ref_0
+    folder: cms/pages/playground
+    fields: *ref_1
+  - name: markers
+    label: Markers
+    folder: cms/markers
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: markers
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[markers].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_2
+  - name: texts
+    label: Texts
+    folder: cms/texts
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - label: Content
+        name: body
+        widget: markdown
+        required: false
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_number
+        label: Number
+        widget: number
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: texts
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[texts].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_2
+  - name: hero
+    label: Heros
+    folder: cms/hero
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_image
+        label: Image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_description
+        label: Description
+        widget: string
+        required: false
+      - hint: ''
+        name: f_category
+        label: Category
+        widget: string
+        required: false
+      - hint: ''
+        name: f_order
+        label: Order
+        widget: number
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: hero
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[hero].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_2
+  - name: highlights
+    label: Highlights
+    folder: cms/highlights
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: DO NOT CHANGE
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: Keep it as short as possible, one mini paragraph @max 123 characters
+        name: f_teaser-summary
+        label: Summary
+        widget: text
+        required: false
+      - hint: DO NOT CHANGE
+        name: f_order
+        label: Order
+        widget: number
+        required: false
+      - hint: ''
+        name: f_category-3
+        label: Category
+        widget: select
+        required: false
+        options:
+          - label: Solaire
+            value: Solaire
+          - label: Optimisation
+            value: Optimisation
+          - label: Stockage batterie
+            value: Stockage batterie
+          - label: Borne de charge
+            value: Borne de charge
+          - label: Contracting location
+            value: Contracting location
+      - hint: Select the project the highlight refers to
+        name: f_url-to-the-project
+        label: URL to the project
+        widget: relation
+        required: false
+        collection: realisations
+        value_field: cms/realisations/{{slug}}.md
+        search_fields:
+          - slug
+          - name
+        display_fields:
+          - title
+        multiple: false
+      - hint: Custom image used for the highlight section on the LP
+        name: f_thumbnail
+        label: Thumbnail
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_location-2
+        label: Location
+        widget: string
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: highlights
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[highlights].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_2
+  - name: services
+    label: Services
+    folder: cms/services
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - label: Content
+        name: body
+        widget: markdown
+        required: false
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_order
+        label: Order
+        widget: number
+        required: false
+      - hint: ''
+        name: f_shorten-category-name
+        label: Shorten category name
+        widget: string
+        required: false
+      - hint: ''
+        name: f_mini-description
+        label: Mini description
+        widget: text
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: services
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[services].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_2
+  - name: realisations
+    label: Réalisations
+    folder: cms/realisations
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_order
+        label: Order
+        widget: number
+        required: false
+      - hint: Should the project NOT appear on the project/réalisation page ?
+        name: f_featured
+        label: Featured?
+        widget: boolean
+        required: false
+        default: false
+      - hint: ''
+        name: f_post-summary
+        label: Location
+        widget: text
+        required: false
+      - hint: ''
+        name: f_service
+        label: Service
+        widget: relation
+        required: false
+        collection: services
+        value_field: cms/services/{{slug}}.md
+        search_fields:
+          - slug
+          - name
+        display_fields:
+          - title
+        multiple: false
+      - hint: ''
+        name: f_thumbnail-image
+        label: Thumbnail image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: First image of the gallery MUST match the thumbnail image
+        name: f_gallery
+        label: Gallery
+        widget: list
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: realisations
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[realisations].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_2
+  - name: testimonials
+    label: Testimonials
+    folder: cms/testimonials
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_order
+        label: Order
+        widget: number
+        required: false
+      - hint: ''
+        name: f_quote
+        label: Quote
+        widget: string
+        required: false
+      - hint: ''
+        name: f_job-title
+        label: Location
+        widget: string
+        required: false
+      - hint: ''
+        name: f_company-logo
+        label: Company Logo
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_headshot
+        label: Headshot
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_color-background
+        label: Color (background)
+        widget: color
+        required: false
+        enableAlpha: true
+        allowInput: true
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: testimonials
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[testimonials].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_2
+  - name: articles
+    label: Articles
+    folder: cms/articles
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_article-thumbnail
+        label: Article Thumbnail
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_order
+        label: Order
+        widget: number
+        required: false
+      - hint: >-
+          enclencher seulement si l'article est en display sur la Home page
+          (horizontal scroll module)
+        name: f_show-in-lp
+        label: Show in LP
+        widget: boolean
+        required: false
+        default: false
+      - hint: ''
+        name: f_color
+        label: Color card
+        widget: color
+        required: false
+        enableAlpha: true
+        allowInput: true
+      - hint: ''
+        name: f_color-text
+        label: Color text
+        widget: color
+        required: false
+        enableAlpha: true
+        allowInput: true
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: articles
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[articles].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_2
+  - label: Theme Settings
+    name: settings
+    identifier_field: title
+    extension: json
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    files:
+      - label: General
+        name: site
+        file: cms/_data/settings/site.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: General
+          - hint: Full domain url (needed for a correct sitemap file)
+            name: domain
+            label: Domain
+            widget: string
+            required: false
+          - name: favicon
+            label: Favicon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: apple_touch_icon
+            label: Apple Touch Icon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: header_additional_content
+            label: Additional Content Header
+            hint: Content here will be placed before </head> tag
+            widget: text
+            required: false
+          - name: footer_additional_content
+            label: Additional Content Footer
+            hint: Content here will be placed before </body> tag
+            widget: text
+            required: false
+          - name: images_optimization
+            label: Images Optimization
+            widget: object
+            collapsed: false
+            fields:
+              - label: Image Formats
+                name: formats
+                widget: select
+                multiple: true
+                options:
+                  - label: Avif
+                    value: avif
+                  - label: Webp
+                    value: webp
+              - label: Image Dimensions
+                name: dimensions
+                widget: select
+                multiple: true
+                options:
+                  - label: '500'
+                    value: 500
+                  - label: '800'
+                    value: 800
+                  - label: '1080'
+                    value: 1080
+                  - label: '1600'
+                    value: 1600
+                  - label: '2000'
+                    value: 2000
+                  - label: '2600'
+                    value: 2600
+      - label: Colors
+        name: colors
+        file: cms/_data/colors.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Colors
+      - label: Texts
+        name: texts
+        file: cms/_data/texts.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Texts
+          - hint: 'Original text: Prestations, key: 1dc02d42'
+            label: Text
+            name: 1dc02d42
+            widget: string
+          - hint: 'Original text: new, key: 1a9a0'
+            label: Text
+            name: 1a9a0
+            widget: string
+          - hint: 'Original text: Réalisations, key: 22a2850a'
+            label: Text
+            name: 22a2850a
+            widget: string
+          - hint: 'Original text: L''entreprise, key: 613d8936'
+            label: Text
+            name: 613d8936
+            widget: string
+          - hint: 'Original text: 079 609 18 70, key: -2ed7c2bd'
+            label: Text
+            name: '-2ed7c2bd'
+            widget: string
+          - hint: 'Original text: Devis Gratuit, key: 424189e1'
+            label: Text
+            name: '424189e1'
+            widget: string
+          - hint: >-
+              Original text: — Installation solaire photovoltaïque & borne de
+              recharge électrique, key: 6bd2eb00
+            label: Text
+            name: 6bd2eb00
+            widget: string
+          - hint: >-
+              Original text: — pour particuliers, PPE & entreprises, key:
+              1bf7c556
+            label: Text
+            name: 1bf7c556
+            widget: string
+          - hint: 'Original text: No items found., key: 3d503d2b'
+            label: Text
+            name: 3d503d2b
+            widget: string
+          - hint: >-
+              Original text: Des subventions à la mise en service, nous
+              facilitons votre transition au solaire., key: -3e1d7242
+            label: Text
+            name: '-3e1d7242'
+            widget: string
+          - hint: 'Original text: Voir nos prestations, key: 1bcdeeb6'
+            label: Text
+            name: 1bcdeeb6
+            widget: string
+          - hint: >-
+              Original text: Installation photovoltaïque pour particuliers, PPE
+              et entreprises, projet clé en main, key: -42673eef
+            label: Text
+            name: '-42673eef'
+            widget: string
+          - hint: 'Original text: dès, key: 193ef'
+            label: Text
+            name: 193ef
+            widget: string
+          - hint: 'Original text: 15K, key: bea7'
+            label: Text
+            name: bea7
+            widget: string
+          - hint: 'Original text: CHF, key: 10481'
+            label: Text
+            name: '10481'
+            widget: string
+          - hint: >-
+              Original text: Borne de charge pour particulier et solution pour
+              PPE, key: c9ceed8
+            label: Text
+            name: c9ceed8
+            widget: string
+          - hint: 'Original text: 1,6K, key: 16f230'
+            label: Text
+            name: 16f230
+            widget: string
+          - hint: >-
+              Original text: 100% des prestations sont réalisées en interne y
+              compris les échafaudages, zéro sous-traitants., key: 4887ce81
+            label: Text
+            name: 4887ce81
+            widget: text
+          - hint: 'Original text: 100%, key: 170054'
+            label: Text
+            name: '170054'
+            widget: string
+          - hint: >-
+              Original text: entre 30 — 40% du prix est subventionné par des
+              subventions et autres avantages fiscaux, key: 549be087
+            label: Text
+            name: 549be087
+            widget: string
+          - hint: 'Original text: jusqu''à, key: -4a7accbb'
+            label: Text
+            name: '-4a7accbb'
+            widget: string
+          - hint: 'Original text: 40%, key: c929'
+            label: Text
+            name: c929
+            widget: string
+          - hint: >-
+              Original text: Moins de 30m² de panneaux solaires suffisent pour
+              une famille de 5, key: -62df7d75
+            label: Text
+            name: '-62df7d75'
+            widget: string
+          - hint: >-
+              Original text: Une sélection de nos dernières installations
+              photovoltaïques, key: -71f9d611
+            label: Text
+            name: '-71f9d611'
+            widget: string
+          - hint: 'Original text: Voir d''autres réalisations, key: -ba0add7'
+            label: Text
+            name: '-ba0add7'
+            widget: string
+          - hint: >-
+              Original text: Transformer la puissance du soleil en énergie
+              propre et durable., key: 5a5b00d6
+            label: Text
+            name: 5a5b00d6
+            widget: string
+          - hint: 'Original text: BAOBAB ENERGY Sàrl, key: -31243e2e'
+            label: Text
+            name: '-31243e2e'
+            widget: string
+          - hint: 'Original text: Mon toit est-il bien orienté ?, key: -43834a7d'
+            label: Text
+            name: '-43834a7d'
+            widget: string
+          - hint: 'Original text: Nous suivre, key: 1e9b6083'
+            label: Text
+            name: 1e9b6083
+            widget: string
+          - hint: 'Original text: ~ , key: f62'
+            label: Text
+            name: f62
+            widget: string
+          - hint: 'Original text: 600.0301508, key: -dc475ff'
+            label: Text
+            name: '-dc475ff'
+            widget: string
+          - hint: 'Original text:  MWh, key: fb7de'
+            label: Text
+            name: fb7de
+            widget: string
+          - hint: >-
+              Original text: La production cumulée excède les 600 MWh, et elle
+              est en hausse..., key: 4fb7adc0
+            label: Text
+            name: 4fb7adc0
+            widget: string
+          - hint: >-
+              Original text: Installation de panneaux photovoltaïques, un projet
+              clés en main, key: 38774540
+            label: Text
+            name: '38774540'
+            widget: string
+          - hint: >-
+              Original text: Fier de notre ancrage local depuis 2017, nous
+              proposons des solutions durables pour produire de l'énergie
+              propre., key: 15e3e5da
+            label: Text
+            name: 15e3e5da
+            widget: text
+          - hint: 'Original text: Voir nos réalisations, key: -19b30dea'
+            label: Text
+            name: '-19b30dea'
+            widget: string
+          - hint: >-
+              Original text: Nos conseils et astuces solaires et énergétiques,
+              key: be809b1
+            label: Text
+            name: be809b1
+            widget: string
+          - hint: 'Original text: Prendre contact, key: -48bda494'
+            label: Text
+            name: '-48bda494'
+            widget: string
+          - hint: >-
+              Original text: BAOBAB ENERGY Sàrl en quelques chiffres, key:
+              4cff4236
+            label: Text
+            name: 4cff4236
+            widget: string
+          - hint: 'Original text: Une entreprise en pleine expansion, key: -3f389c64'
+            label: Text
+            name: '-3f389c64'
+            widget: string
+          - hint: 'Original text: +, key: 2b'
+            label: Text
+            name: 2b
+            widget: string
+          - hint: 'Original text: 0, key: 30'
+            label: Text
+            name: '30'
+            widget: string
+          - hint: 'Original text: Projets en service, key: 26628ef7'
+            label: Text
+            name: 26628ef7
+            widget: string
+          - hint: >-
+              Original text: Chaque projet est réalisé avec une attention
+              méticuleuse et une approche personnalisée, garantissant des
+              résultats optimaux., key: b41f2c2
+            label: Text
+            name: b41f2c2
+            widget: text
+          - hint: 'Original text: Bornes électriques, key: -12e0326d'
+            label: Text
+            name: '-12e0326d'
+            widget: string
+          - hint: >-
+              Original text: BAOBAB ENERGY Sàrl contribue de manière
+              significative à l'infrastructure de transport durable en
+              installant des bornes électriques., key: 7d15fcda
+            label: Text
+            name: 7d15fcda
+            widget: text
+          - hint: 'Original text: Énergie générée, key: -6ca2367e'
+            label: Text
+            name: '-6ca2367e'
+            widget: string
+          - hint: >-
+              Original text: Cette réalisation incarne notre engagement envers
+              un avenir plus durable et notre capacité à fournir des solutions
+              énergétiques efficaces., key: 69d0404b
+            label: Text
+            name: 69d0404b
+            widget: text
+          - hint: 'Original text: Certifications OIBT, key: -5e9993ad'
+            label: Text
+            name: '-5e9993ad'
+            widget: string
+          - hint: >-
+              Original text: Contrôles périodiques garantissent la sécurité des
+              installations électriques, la certification immobilière et la
+              qualité du travail d'installateur., key: -2ff3e80b
+            label: Text
+            name: '-2ff3e80b'
+            widget: text
+          - hint: 'Original text:  CHF, key: f9061'
+            label: Text
+            name: f9061
+            widget: string
+          - hint: 'Original text: Prix moyen d''un plein, key: -19061ea7'
+            label: Text
+            name: '-19061ea7'
+            widget: string
+          - hint: >-
+              Original text: Prix moyen d'un plein pour votre voiture électrique
+              grâce à votre installation solaire photovoltaïque BAOBAB ENERGY
+              Sàrl., key: 1e6b8640
+            label: Text
+            name: 1e6b8640
+            widget: text
+          - hint: 'Original text:  ANS, key: f89a6'
+            label: Text
+            name: f89a6
+            widget: string
+          - hint: 'Original text: Retour sur investissement, key: -53788dcc'
+            label: Text
+            name: '-53788dcc'
+            widget: string
+          - hint: >-
+              Original text: Temps de retour moyen de votre investissement dans
+              votre installation solaire photovoltaïque., key: -794cfa54
+            label: Text
+            name: '-794cfa54'
+            widget: text
+          - hint: >-
+              Original text: Présent dans + de 35 villages du valais centrale,
+              key: 505f9e1f
+            label: Text
+            name: 505f9e1f
+            widget: string
+          - hint: >-
+              Original text: Voir une sélection de nos réalisations, key:
+              5731a8d
+            label: Text
+            name: 5731a8d
+            widget: string
+          - hint: >-
+              Original text: Ce que nos clients disent de nos services, key:
+              6f0131eb
+            label: Text
+            name: 6f0131eb
+            widget: string
+          - hint: >-
+              Original text: Milton a été de très bon conseil pour le choix de
+              la borne et très transparent sur la qualité et le prix des
+              matériaux. Il est disponible et assure un bon suivi. Je recommande
+              ses services., key: 4db44ff0
+            label: Text
+            name: 4db44ff0
+            widget: text
+          - hint: 'Original text: Angelo Mellone, key: -63238344'
+            label: Text
+            name: '-63238344'
+            widget: string
+          - hint: 'Original text: Valais, Suisse, key: -3da27a64'
+            label: Text
+            name: '-3da27a64'
+            widget: string
+          - hint: >-
+              Original text: Vraiment très agréable et hautement professionnel,
+              d'une réactivité exceptionnelle. Je recommande vivement ! Bravo,
+              key: -53515a3a
+            label: Text
+            name: '-53515a3a'
+            widget: text
+          - hint: 'Original text: Jean Moulin, key: 62443716'
+            label: Text
+            name: '62443716'
+            widget: string
+          - hint: >-
+              Original text: Super travail super personne très professionnel
+              rapide et efficace tout ce quand aime je recommande à toute
+              personne ayant besoin d’une borne. 🤩🤩 …, key: 4b27beb
+            label: Text
+            name: 4b27beb
+            widget: text
+          - hint: 'Original text: Miguel Gomes, key: -9414b3c'
+            label: Text
+            name: '-9414b3c'
+            widget: string
+          - hint: >-
+              Original text: Notre soleil, source infinie d'énergie, key:
+              -1c3f214f
+            label: Text
+            name: '-1c3f214f'
+            widget: string
+          - hint: 'Original text: Valais Contrôle, key: -783fe13d'
+            label: Text
+            name: '-783fe13d'
+            widget: string
+          - hint: 'Original text: Gecko Échafaudages, key: 281de688'
+            label: Text
+            name: 281de688
+            widget: string
+          - hint: 'Original text: Mentions légales, key: -68d80214'
+            label: Text
+            name: '-68d80214'
+            widget: string
+          - hint: 'Original text: Cookies, key: -64062591'
+            label: Text
+            name: '-64062591'
+            widget: string
+          - hint: 'Original text: info@baobab.energy, key: 85d0ed1'
+            label: Text
+            name: 85d0ed1
+            widget: string
+          - hint: 'Original text: © , key: 1497'
+            label: Text
+            name: '1497'
+            widget: string
+          - hint: 'Original text: 2024, key: 177500'
+            label: Text
+            name: '177500'
+            widget: string
+          - hint: 'Original text:  BAOBAB ENERGY Sàrl , key: d7446e'
+            label: Text
+            name: d7446e
+            widget: string
+          - hint: 'Original text: Design, key: 79ceadde'
+            label: Text
+            name: 79ceadde
+            widget: string
+          - hint: 'Original text: anthonysalamin.ch, key: -67104443'
+            label: Text
+            name: '-67104443'
+            widget: string
+          - hint: 'Original text: En cliquant sur , key: -5767796a'
+            label: Text
+            name: '-5767796a'
+            widget: string
+          - hint: 'Original text: "Accepter", key: 6af87d0b'
+            label: Text
+            name: 6af87d0b
+            widget: string
+          - hint: >-
+              Original text: , vous acceptez l'utilisation de "cookies" afin
+              d'améliorer votre navigation sur le site. Voir notre rubrique ,
+              key: 336a1058
+            label: Text
+            name: 336a1058
+            widget: text
+          - hint: 'Original text: Mention Légales, key: 1349d6ad'
+            label: Text
+            name: 1349d6ad
+            widget: string
+          - hint: 'Original text:  pour plus d''information., key: 196d8267'
+            label: Text
+            name: 196d8267
+            widget: string
+          - hint: 'Original text: Préferences, key: 4d4dc35c'
+            label: Text
+            name: 4d4dc35c
+            widget: string
+          - hint: 'Original text: Décliner, key: 6c6eede0'
+            label: Text
+            name: 6c6eede0
+            widget: string
+          - hint: 'Original text: Accepter, key: -7c16fc2b'
+            label: Text
+            name: '-7c16fc2b'
+            widget: string
+          - hint: >-
+              Original text: Centre de préférences de la politique de
+              confidentialité, key: -111e6df3
+            label: Text
+            name: '-111e6df3'
+            widget: string
+          - hint: >-
+              Original text: Lorsque vous visitez des sites Web, ils peuvent
+              stocker ou récupérer des données à partir de votre navigateur. Ce
+              stockage est souvent nécessaire pour les fonctionnalités de base
+              du site web. Elles peuvent être utilisées à des fins de marketing,
+              d'analyse et de personnalisation du site, par exemple pour
+              enregistrer vos préférences. La protection de votre vie privée est
+              importante pour nous, c'est pourquoi vous avez la possibilité de
+              désactiver certains types de stockage qui ne sont pas nécessaires
+              au fonctionnement de base du site web. Le blocage de certaines
+              catégories peut avoir un impact sur votre expérience du site Web.,
+              key: 70cf919b
+            label: Text
+            name: 70cf919b
+            widget: text
+          - hint: 'Original text: Refuser tous les cookies, key: -53dcc79c'
+            label: Text
+            name: '-53dcc79c'
+            widget: string
+          - hint: 'Original text: Accepter tous les cookies, key: -79c29fd3'
+            label: Text
+            name: '-79c29fd3'
+            widget: string
+          - hint: >-
+              Original text: Gérer les préférences de consentement par
+              catégorie, key: -7b73c3ad
+            label: Text
+            name: '-7b73c3ad'
+            widget: string
+          - hint: 'Original text: Essentiel, key: 16a393aa'
+            label: Text
+            name: 16a393aa
+            widget: string
+          - hint: 'Original text: Toujours actif, key: -5c954f1a'
+            label: Text
+            name: '-5c954f1a'
+            widget: string
+          - hint: >-
+              Original text: Ces éléments sont nécessaires au fonctionnement de
+              base du site web., key: -49e1473e
+            label: Text
+            name: '-49e1473e'
+            widget: string
+          - hint: 'Original text: Marketing, key: 3fc9ea06'
+            label: Text
+            name: 3fc9ea06
+            widget: string
+          - hint: 'Original text: Essential, key: 16a3932e'
+            label: Text
+            name: 16a3932e
+            widget: string
+          - hint: >-
+              Original text: Ces éléments sont utilisés pour diffuser des
+              publicités plus pertinentes pour vous et vos centres d'intérêt.
+              Ils peuvent également être utilisés pour limiter le nombre de fois
+              que vous voyez une publicité et pour mesurer l'efficacité des
+              campagnes publicitaires. Les réseaux publicitaires les placent
+              généralement avec l'autorisation de l'exploitant du site web.,
+              key: 981c690
+            label: Text
+            name: 981c690
+            widget: text
+          - hint: 'Original text: Personnalisation, key: 6fc5ea07'
+            label: Text
+            name: 6fc5ea07
+            widget: string
+          - hint: >-
+              Original text: Ces éléments permettent au site Web de se souvenir
+              des choix que vous faites (tels que votre nom d'utilisateur, votre
+              langue ou votre emplacement) et de fournir des fonctionnalités
+              améliorées et plus personnelles. Par exemple, un site Web peut
+              vous fournir des bulletins météorologiques locaux ou des
+              informations sur le trafic en stockant des données sur votre
+              position actuelle., key: -23c93b9d
+            label: Text
+            name: '-23c93b9d'
+            widget: text
+          - hint: 'Original text: Analyse, key: 2fb3f453'
+            label: Text
+            name: 2fb3f453
+            widget: string
+          - hint: >-
+              Original text: Ces éléments aident l'exploitant du site web à
+              comprendre le fonctionnement du site, comment les visiteurs
+              interagissent avec le site et s'il existe des problèmes
+              techniques. Ce type de stockage ne permet généralement pas de
+              collecter des informations permettant d'identifier un visiteur.,
+              key: -47cd94d2
+            label: Text
+            name: '-47cd94d2'
+            widget: text
+          - hint: 'Original text: Confirmer mes préférences et fermer, key: -c5b78c0'
+            label: Text
+            name: '-c5b78c0'
+            widget: string
+          - hint: 'Original text: Protected Page, key: -11d4bbff'
+            label: Text
+            name: '-11d4bbff'
+            widget: string
+          - hint: 'Original text: Password, key: 4c641ebb'
+            label: Text
+            name: 4c641ebb
+            widget: string
+          - hint: >-
+              Original text: Incorrect password. Please try again., key:
+              -f5c4b5f
+            label: Text
+            name: '-f5c4b5f'
+            widget: string
+          - hint: 'Original text: Page Not Found, key: -40b0787c'
+            label: Text
+            name: '-40b0787c'
+            widget: string
+          - hint: >-
+              Original text: The page you are looking for doesn't exist or has
+              been moved, key: 556d64d8
+            label: Text
+            name: 556d64d8
+            widget: string
+          - hint: 'Original text: Nos conseils solaires et énergétiques, key: dcb312a'
+            label: Text
+            name: dcb312a
+            widget: string
+          - hint: 'Original text: Voir tous les conseils, key: -5ae93955'
+            label: Text
+            name: '-5ae93955'
+            widget: string
+          - hint: 'Original text: Explore article, key: 57bad849'
+            label: Text
+            name: 57bad849
+            widget: string
+          - hint: 'Original text: scroll, key: -361a1933'
+            label: Text
+            name: '-361a1933'
+            widget: string
+          - hint: 'Original text: Participer à la transition, key: -3024727f'
+            label: Text
+            name: '-3024727f'
+            widget: string
+          - hint: 'Original text: Nos experts vous répondent, key: 6960571b'
+            label: Text
+            name: 6960571b
+            widget: string
+          - hint: 'Original text: Installation solaire, key: 3917a25'
+            label: Text
+            name: 3917a25
+            widget: string
+          - hint: >-
+              Original text: Utiliser la puissance du soleil pour un avenir
+              durable, acquérir son indépendance énergétique et réduire sa
+              facture d'électricité., key: 260b1f16
+            label: Text
+            name: 260b1f16
+            widget: text
+          - hint: 'Original text: A — Z, key: 41af2ef'
+            label: Text
+            name: 41af2ef
+            widget: string
+          - hint: 'Original text: Sélection ☀️, key: 6ea322c7'
+            label: Text
+            name: 6ea322c7
+            widget: string
+          - hint: 'Original text: Sélection non-exhaustive, key: 5b666126'
+            label: Text
+            name: 5b666126
+            widget: string
+          - hint: 'Original text: featuring, key: -19104dcd'
+            label: Text
+            name: '-19104dcd'
+            widget: string
+          - hint: 'Original text: Highlight, key: 4ed7ac94'
+            label: Text
+            name: 4ed7ac94
+            widget: string
+          - hint: 'Original text: Quelques-un de nos partenaires, key: -35d2e37a'
+            label: Text
+            name: '-35d2e37a'
+            widget: string
+          - hint: >-
+              Original text: Transitionnez au solaire, faites des économies,
+              key: -a12b975
+            label: Text
+            name: '-a12b975'
+            widget: string
+          - hint: >-
+              Original text: Entreprise valaisanne depuis 2017, spécialisée en
+              solutions énergétiques et installations solaires photovoltaïques.,
+              key: -6acb9365
+            label: Text
+            name: '-6acb9365'
+            widget: text
+          - hint: >-
+              Original text: 100% des services réalisés en interne, 0
+              sous-traitants., key: 26976425
+            label: Text
+            name: '26976425'
+            widget: string
+          - hint: >-
+              Original text: Baobab Energy Sàrl propose son expertise en
+              installation de panneaux solaires photovoltaïques, offrant des
+              solutions durables pour produire de l'énergie propre incluant
+              bornes de recharge pour véhicules électriques et systèmes
+              d'optimisation énergétique., key: -6f73714c
+            label: Text
+            name: '-6f73714c'
+            widget: text
+          - hint: >-
+              Original text: Notre équipe gère l'installation complète pour les
+              clients privés et résidentiels, de la demande de subventions à la
+              mise en service., key: 1e1ecb43
+            label: Text
+            name: 1e1ecb43
+            widget: text
+          - hint: 'Original text: contact, key: 38b72420'
+            label: Text
+            name: 38b72420
+            widget: string
+          - hint: 'Original text: 01, key: 601'
+            label: Text
+            name: '601'
+            widget: string
+          - hint: 'Original text: Installation photovoltaïque, key: -7675057a'
+            label: Text
+            name: '-7675057a'
+            widget: string
+          - hint: >-
+              Original text: Baobab Energy Sàrl est une entreprise spécialisée
+              dans l'installation photovoltaïque, offrant des solutions durables
+              et innovantes pour répondre aux besoins énergétiques de ses
+              clients. Grâce à leur expertise et leur engagement envers
+              l'énergie renouvelable, Baobab Energy Sàrl conçoit et déploie des
+              systèmes solaires efficaces et fiables, adaptés aux particuliers,
+              aux entreprises et aux collectivités. Leur approche personnalisée
+              garantit une intégration harmonieuse des panneaux solaires dans
+              chaque projet, permettant ainsi à leurs clients de profiter d'une
+              source d'énergie propre et économique. En investissant dans une
+              installation photovoltaïque avec Baobab Energy Sàrl, les clients
+              contribuent également à la préservation de l'environnement et à la
+              lutte contre le changement climatique, tout en réalisant des
+              économies à long terme sur leurs factures d'électricité., key:
+              1bf2b319
+            label: Text
+            name: 1bf2b319
+            widget: text
+          - hint: 'Original text: 02, key: 602'
+            label: Text
+            name: '602'
+            widget: string
+          - hint: 'Original text: Système de stockage batterie, key: 7f915647'
+            label: Text
+            name: 7f915647
+            widget: string
+          - hint: >-
+              Original text: Baobab Energy Sàrl propose également des solutions
+              de stockage batterie pour optimiser l'utilisation de l'énergie
+              solaire. Ces systèmes de stockage permettent de stocker
+              l'électricité produite par les panneaux photovoltaïques pendant
+              les périodes de faible demande ou d'absence de soleil, offrant
+              ainsi une source d'énergie fiable et disponible à tout moment.
+              Grâce à cette technologie innovante, les clients de Baobab Energy
+              Sàrl peuvent maximiser leur autoconsommation d'énergie solaire et
+              réduire leur dépendance aux réseaux électriques traditionnels. En
+              combinant une installation photovoltaïque avec un système de
+              stockage batterie, les clients peuvent bénéficier d'une solution
+              énergétique complète et durable, adaptée à leurs besoins
+              spécifiques et contribuant à une transition vers un avenir
+              énergétique plus propre et plus efficace., key: 5e0aef68
+            label: Text
+            name: 5e0aef68
+            widget: text
+          - hint: 'Original text: 03, key: 603'
+            label: Text
+            name: '603'
+            widget: string
+          - hint: >-
+              Original text: Dans le cadre de son engagement en faveur de
+              l'énergie renouvelable et de la mobilité électrique, Baobab Energy
+              Sàrl propose des bornes de charge pour particuliers ainsi que des
+              solutions adaptées aux propriétés par étages (PPE). Ces bornes de
+              charge permettent aux propriétaires de véhicules électriques de
+              recharger facilement leur voiture à domicile, offrant ainsi un
+              moyen pratique et efficace de soutenir la transition vers une
+              mobilité plus durable. Pour les propriétés par étages, Baobab
+              Energy Sàrl propose des solutions sur mesure, garantissant une
+              gestion efficace de la recharge électrique tout en optimisant
+              l'utilisation de l'énergie solaire disponible. En fournissant des
+              infrastructures de charge accessibles et efficaces, Baobab Energy
+              Sàrl contribue à encourager l'adoption des véhicules électriques
+              et à créer un environnement urbain plus propre et plus respectueux
+              de l'environnement., key: 7a620f4e
+            label: Text
+            name: 7a620f4e
+            widget: text
+          - hint: 'Original text: 04, key: 604'
+            label: Text
+            name: '604'
+            widget: string
+          - hint: >-
+              Original text: Système d'optimisation de la consommation
+              électrique, key: -751526ae
+            label: Text
+            name: '-751526ae'
+            widget: string
+          - hint: >-
+              Original text: Dans sa quête pour offrir des solutions
+              énergétiques complètes et intelligentes, Baobab Energy Sàrl
+              propose également des systèmes d'optimisation de la consommation
+              électrique. Ces solutions permettent de surveiller et de contrôler
+              la consommation d'énergie dans les foyers et les entreprises, en
+              identifiant les goulots d'étranglement et en mettant en œuvre des
+              mesures pour optimiser l'utilisation de l'électricité. Grâce à des
+              technologies avancées de gestion de l'énergie, les clients peuvent
+              réduire leur empreinte carbone et réaliser des économies
+              significatives sur leurs factures d'électricité. Les systèmes
+              d'optimisation de la consommation électrique de Baobab Energy Sàrl
+              offrent une approche proactive pour une utilisation plus efficace
+              et durable de l'énergie, contribuant ainsi à la transition vers un
+              avenir énergétique plus propre et plus résilient., key: 5d6b28d1
+            label: Text
+            name: 5d6b28d1
+            widget: text
+          - hint: 'Original text: 05, key: 605'
+            label: Text
+            name: '605'
+            widget: string
+          - hint: >-
+              Original text: Contracting pour la location de votre toiture en
+              vue de l'installation d'une solution photovoltaïque, key: 1e5af3ae
+            label: Text
+            name: 1e5af3ae
+            widget: text
+          - hint: >-
+              Original text: Baobab Energy Sàrl offre également des solutions de
+              contracting pour la location de toitures en vue de l'installation
+              de solutions photovoltaïques. Ce modèle permet aux propriétaires
+              de bâtiments de tirer parti de leur espace inutilisé en louant
+              leur toiture à Baobab Energy Sàrl pour y installer des panneaux
+              solaires. En échange, les propriétaires bénéficient d'un revenu
+              régulier provenant de la location de leur toiture, sans avoir à
+              supporter les coûts initiaux d'investissement dans l'installation
+              photovoltaïque. Ce contrat de leasing offre une solution rentable
+              et écologique pour exploiter pleinement le potentiel solaire des
+              bâtiments, tout en contribuant à la transition vers une énergie
+              propre et durable., key: 4d93ccfb
+            label: Text
+            name: 4d93ccfb
+            widget: text
+          - hint: 'Original text: Certification et contrôle OIBT ✔️, key: 2072de07'
+            label: Text
+            name: 2072de07
+            widget: string
+          - hint: >-
+              Original text: Contrôle périodique : Vous êtes propriétaire et
+              l’exploitant réseau vous demande le rapport de sécurité de votre
+              installation électrique. Votre installation doit-être contrôlée
+              périodiquement tous les 1-5-10-20 ans cela dépend du genre
+              d'installation, key: -64eb56e1
+            label: Text
+            name: '-64eb56e1'
+            widget: text
+          - hint: >-
+              Original text: Contrôle quinquennal : Vous venez d'acquérir un
+              bien immobilier et cela fait plus de 5 ans qu'il n'a plus été
+              contrôlé. Votre installation doit être certifiée, key: -77ee9076
+            label: Text
+            name: '-77ee9076'
+            widget: text
+          - hint: >-
+              Original text: Contrôle final : Vous êtes installateur électricien
+              et vous voulez qu'une personne étrangère à l'entreprise contrôle
+              le travail effectué tout au long de la réalisation ainsi que les
+              dernières vérifications de sécurité, key: -4f5c6b4a
+            label: Text
+            name: '-4f5c6b4a'
+            widget: text
+          - hint: >-
+              Original text: Contrôle de réception : Vous avez une installation
+              qui demande un contrôle de réception. Ce deuxième contrôle se fait
+              sur la base du premier et sert à valider son contrôle final, key:
+              753c42e3
+            label: Text
+            name: 753c42e3
+            widget: text
+          - hint: 'Original text: Nous répondons à vos questions., key: -4cfe9760'
+            label: Text
+            name: '-4cfe9760'
+            widget: string
+          - hint: >-
+              Original text: Remplissez le formulaire ci-dessous et nous
+              reprendrons contact avec vous ausitôt que possible afin de
+              répondre à votre requête., key: -5f85bb82
+            label: Text
+            name: '-5f85bb82'
+            widget: text
+          - hint: >-
+              Original text: Des solutions durables pour de l'énergie propre.,
+              key: -13682841
+            label: Text
+            name: '-13682841'
+            widget: string
+          - hint: >-
+              Original text: Complétez ce formulaire et nous vous recontacterons
+              dans les meilleurs délais., key: -699766fc
+            label: Text
+            name: '-699766fc'
+            widget: string
+          - hint: >-
+              Original text: Quels services vous semblent les plus pertinents ?,
+              key: 1ded8988
+            label: Text
+            name: 1ded8988
+            widget: string
+          - hint: >-
+              Original text: Nous inspectons, si vous le souhaitez,
+              l'orientation de votre toit, sans aucun engagement de votre part.
+              La performance de nos installations est essentielle à nos yeux.,
+              key: -43d1bf4c
+            label: Text
+            name: '-43d1bf4c'
+            widget: text
+          - hint: 'Original text: Vérifier l''orientation de mon toit, key: 7e3ba828'
+            label: Text
+            name: 7e3ba828
+            widget: string
+          - hint: 'Original text: nouveau !, key: -43a3d1c8'
+            label: Text
+            name: '-43a3d1c8'
+            widget: string
+          - hint: >-
+              Original text: Avez-vous une date d'échéance approximative ?, key:
+              22d874b
+            label: Text
+            name: 22d874b
+            widget: string
+          - hint: 'Original text: ASAP, key: 1ecbe1'
+            label: Text
+            name: 1ecbe1
+            widget: string
+          - hint: 'Original text: 1 — 2 mois, key: -7e2035eb'
+            label: Text
+            name: '-7e2035eb'
+            widget: string
+          - hint: 'Original text: 2 — 4 mois, key: 7992ec72'
+            label: Text
+            name: 7992ec72
+            widget: string
+          - hint: 'Original text: Pas encore sûr, key: c99090'
+            label: Text
+            name: c99090
+            widget: string
+          - hint: >-
+              Original text: Comment devrions-nous commencer une conversation ?,
+              key: 535b5c98
+            label: Text
+            name: 535b5c98
+            widget: string
+          - hint: >-
+              Original text: Comment avez-vous entendu parlé de nous ?, key:
+              7b357999
+            label: Text
+            name: 7b357999
+            widget: string
+          - hint: 'Original text: Installation d''un voisin, key: -72fe5c3a'
+            label: Text
+            name: '-72fe5c3a'
+            widget: string
+          - hint: 'Original text: Recherche internet, key: 5b4747e6'
+            label: Text
+            name: 5b4747e6
+            widget: string
+          - hint: 'Original text: Réseaux sociaux, key: -63fc60a3'
+            label: Text
+            name: '-63fc60a3'
+            widget: string
+          - hint: 'Original text: Autre, key: 3cae8d3'
+            label: Text
+            name: 3cae8d3
+            widget: string
+          - hint: >-
+              Original text: Prêt à soumettre votre demande et à transitionner
+              au solaire ?, key: 508d0c1
+            label: Text
+            name: 508d0c1
+            widget: string
+          - hint: >-
+              Original text: Je reconnais avoir lu et consens à la , key:
+              -a76092c
+            label: Text
+            name: '-a76092c'
+            widget: string
+          - hint: 'Original text: politique de confidentialité, key: 6ad7d527'
+            label: Text
+            name: 6ad7d527
+            widget: string
+          - hint: 'Original text:  de baobab.energy, key: 535695a4'
+            label: Text
+            name: 535695a4
+            widget: string
+          - hint: >-
+              Original text: Chaque demande sera évaluée et une estimation de
+              coût détaillée sera fournie au client, sans engagement. En
+              utilisant notre formulaire de messagerie électronique, vous
+              reconnaissez et acceptez que les informations que vous soumettez
+              soient utilisées dans le but de traiter votre demande., key:
+              69ddd0
+            label: Text
+            name: 69ddd0
+            widget: text
+          - hint: 'Original text: Merci !, key: -63f1b05f'
+            label: Text
+            name: '-63f1b05f'
+            widget: string
+          - hint: >-
+              Original text: Oups, quelque chose n'a pas bien fonctionné.
+              Contactez votre administrateur s'il vous plaît., key: 4f581760
+            label: Text
+            name: 4f581760
+            widget: text
+          - hint: 'Original text: L''entrepise, key: 4d75786e'
+            label: Text
+            name: 4d75786e
+            widget: string
+          - hint: >-
+              Original text: Baobab Energy Sàrl propose son expertise en
+              installation de panneaux solaires photovoltaïques, offrant des
+              solutions durables pour produire de l'énergie propre. Notre équipe
+              gère l'installation complète pour les clients privés et
+              résidentiels, de la demande de subventions à la mise en service,
+              incluant les bornes de recharge pour véhicules électriques et les
+              systèmes d'optimisation énergétique., key: 4fdaa7ef
+            label: Text
+            name: 4fdaa7ef
+            widget: text
+          - hint: 'Original text: Étude et Accompagnement, key: -2bddc1b8'
+            label: Text
+            name: '-2bddc1b8'
+            widget: string
+          - hint: >-
+              Original text: L'équipe de Baobab Energy est composée de
+              professionnels expérimentés et passionnés, prêts à vous offrir un
+              service de qualité supérieure. Avec notre équipe d'ingénieurs ,
+              nous avons les compétences nécessaires pour vous proposer des
+              solutions innovantes et adaptées à vos besoins. Baobab Energy vous
+              accompagne de l'étude à la réalisation en passant par les demandes
+              de subventions fédérales, cantonales et communales., key: 41f99cad
+            label: Text
+            name: 41f99cad
+            widget: text
+          - hint: 'Original text: Réalisation professionelle, key: a4007d3'
+            label: Text
+            name: a4007d3
+            widget: string
+          - hint: >-
+              Original text: Nos ingénieurs possèdent une grande expérience dans
+              l'installation de panneaux solaires photovoltaïques et des
+              systèmes d'autoconsommation d'énergie. Nos experts de l'énergie
+              solaire et de l'électricité peuvent vous offrir une solution
+              globale pour la production, le stockage et la consommation
+              d'énergie propre et durable., key: -34d94ed0
+            label: Text
+            name: '-34d94ed0'
+            widget: text
+          - hint: >-
+              Original text: Assurer la confiance et la responsabilité, key:
+              1b61c872
+            label: Text
+            name: 1b61c872
+            widget: string
+          - hint: 'Original text: Merci ☀️, key: -1a3ec771'
+            label: Text
+            name: '-1a3ec771'
+            widget: string
+          - hint: "Original text: Nous vous remercions d'avoir soumis votre requête. Votre demande a été traitée avec succès et nous vous confirmons sa réception. Notre équipe s'engage à traiter votre demande dans les meilleurs délais. Nous vous recontacterons dès que possible pour fournir réponses à \_toutes vos questions. Merci de votre intérêt et de votre patience., key: 4c996bcb"
+            label: Text
+            name: 4c996bcb
+            widget: text
+          - hint: 'Original text: Nous appeler, key: -b8ce1ac'
+            label: Text
+            name: '-b8ce1ac'
+            widget: string
+      - label: Links
+        name: links
+        file: cms/_data/links.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Links
+          - hint: 'Original link: /, key: 2f'
+            label: Link
+            name: 2f
+            widget: string
+          - hint: 'Original link: /prestations/, key: 5a8858bc'
+            label: Link
+            name: 5a8858bc
+            widget: string
+          - hint: 'Original link: /realisations/, key: -7dd25446'
+            label: Link
+            name: '-7dd25446'
+            widget: string
+          - hint: 'Original link: /entreprise/, key: 351ada65'
+            label: Link
+            name: 351ada65
+            widget: string
+          - hint: 'Original link: tel:+416091870, key: -d0333aa'
+            label: Link
+            name: '-d0333aa'
+            widget: string
+          - hint: 'Original link: /contact/, key: 16bdc13e'
+            label: Link
+            name: 16bdc13e
+            widget: string
+          - hint: 'Original link: #, key: 23'
+            label: Link
+            name: '23'
+            widget: string
+          - hint: >-
+              Original link: https://www.instagram.com/baobab.energy/, key:
+              -2d4d7c84
+            label: Link
+            name: '-2d4d7c84'
+            widget: string
+          - hint: >-
+              Original link: https://www.linkedin.com/in/baobabenergy/, key:
+              -68a9cb5e
+            label: Link
+            name: '-68a9cb5e'
+            widget: string
+          - hint: 'Original link: https://valais-controle.ch/, key: -6ec7b4a8'
+            label: Link
+            name: '-6ec7b4a8'
+            widget: string
+          - hint: 'Original link: https://gecko-echafaudages.ch/, key: 2a28d064'
+            label: Link
+            name: 2a28d064
+            widget: string
+          - hint: 'Original link: /mentions-legales/, key: -4560e6e3'
+            label: Link
+            name: '-4560e6e3'
+            widget: string
+          - hint: >-
+              Original link: mailto:info@baobab.energy?subject=Contact, key:
+              2d4f8709
+            label: Link
+            name: 2d4f8709
+            widget: string
+          - hint: 'Original link: https://anthonysalamin.ch/fr/, key: 59c9fc22'
+            label: Link
+            name: 59c9fc22
+            widget: string
+          - hint: 'Original link: #realisations, key: -112b16f7'
+            label: Link
+            name: '-112b16f7'
+            widget: string
+          - hint: 'Original link: #prestations, key: -385fdea1'
+            label: Link
+            name: '-385fdea1'
+            widget: string
+          - hint: 'Original link: #contact, key: 6c80469d'
+            label: Link
+            name: 6c80469d
+            widget: string
+          - hint: 'Original link: #entreprise, key: -3b125a02'
+            label: Link
+            name: '-3b125a02'
+            widget: string
+          - hint: 'Original link: tel:+41796091870, key: -3e31f68c'
+            label: Link
+            name: '-3e31f68c'
+            widget: string
+      - label: Images
+        name: images
+        file: cms/_data/images.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Images
+          - label: Image
+            name: i14174239
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i6594cc6c
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i75dd4c1b
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: eebf7c5
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i2d586b98
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: c8a5c77
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '0'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 29e1cb9c
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 41212d7a
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 4996379e
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-15df57aa'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 54c83e
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 3ab50629
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 412143c2
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 199a44fd
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 4abef31c
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2b1beb3c'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 33b57081
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2f4550a3'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-19fa97cb'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-1f8299d7'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3f38d5dc'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-51f2a81b'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-13175a7b'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-31a0b004'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '4973e426'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-31aec785'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-d7327df'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-31929883'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-463df78'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2f755f48'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-14174239'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 416fc3d
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 4255af5c
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+publish_mode: editorial_workflow
