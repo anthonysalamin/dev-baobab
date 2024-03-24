@@ -509,8 +509,7 @@ function handleNavigation() {
 </script>
   <script>
 /*
- * cluster v6 (clusterer as CDN)
- * to do load markerclusterer as CDN
+ * BAOBAB | cluster v8
  * build 23.03.24 @02:07
  */
 document.addEventListener("DOMContentLoaded", () => {
@@ -519,18 +518,36 @@ document.addEventListener("DOMContentLoaded", () => {
 async function geocodeAddresses(addresses) {
   const geocoder = new google.maps.Geocoder();
   const coordinatesArray = [];
+  const promises = []; // Array to hold all promises
   for (const address of addresses) {
-    try {
-      const results = await geocodeAddress(geocoder, address);
-      const coordinates = {
-        lat: results[0].geometry.location.lat(),
-        lng: results[0].geometry.location.lng()
-      };
-      coordinatesArray.push(coordinates);
-    } catch (error) {
-      console.error(`Geocode error for ${address}`, error);
-    }
+    const promise = new Promise(async (resolve, reject) => {
+      try {
+        const { results, status } = await geocodeAddress(geocoder, address);
+        if (status === google.maps.GeocoderStatus.OK) {
+          const coordinates = {
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng()
+          };
+          coordinatesArray.push(coordinates);
+          // Log status for this address
+          document.querySelector(
+            `#performance`
+          ).textContent = `Geocoding: ${status} | ${address}`;
+          console.log(`Geocode status OK for ${address}`);
+          resolve(); // Resolve the promise
+        } else {
+          console.error(`Geocode error for ${address}: ${status}`);
+          reject(`Geocode error for ${address}: ${status}`);
+        }
+      } catch (error) {
+        console.error(`Geocode error for ${address}`, error);
+        reject(`Geocode error for ${address}: ${error}`);
+      }
+    });
+    promises.push(promise);
   }
+  // Wait for all promises to resolve
+  await Promise.all(promises);
   return coordinatesArray;
 }
 // Helper function to geocode a single address
@@ -538,7 +555,7 @@ function geocodeAddress(geocoder, address) {
   return new Promise((resolve, reject) => {
     geocoder.geocode({ address: address }, function (results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
-        resolve(results);
+        resolve({ results, status });
       } else {
         reject(status);
       }
@@ -600,7 +617,12 @@ async function initMap() {
   const bounds = new google.maps.LatLngBounds();
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: 3,
-    mapId: "3d596bf3748b3b4e"
+    mapId: "3d596bf3748b3b4e",
+    disableDefaultUI: false,
+    mapTypeControl: false,
+    mapTypeId: "roadmap", // ... or "terrain"
+    gestureHandling: "cooperative",
+    fullscreenControl: true
   });
   const infoWindow = new google.maps.InfoWindow({
     content: "",
@@ -614,15 +636,16 @@ async function initMap() {
       const position = { lat: coordinates.lat, lng: coordinates.lng };
       locations.push(position);
     });
-    // Continue with the rest of the code
-    // ...
   } catch (error) {
     console.error("Failed to geocode addresses", error);
   }
+  // performance check
   const end = performance.now();
-  console.log(
-    `geocoding executed in ${millisecondsToSeconds(end - start)} seconds`
-  );
+  const message = `Géocodage exécuté en ${millisecondsToSeconds(
+    end - start
+  )} secondes`;
+  document.querySelector(`#performance`).textContent = message;
+  console.log(message);
   const pinSvgString = `<svg xmlns="http://www.w3.org/2000/svg" width="64px" height="64px" x="0" y="0" viewBox="0 0 74.5 74.5"><title>Marker</title><def><style>.blinky-outer{stroke:#3ea3ff;stroke-width:5px;fill:transparent;opacity:0;animation:expanding 2s cubic-bezier(0.29, 0, 0, 1) infinite;animation-delay:1s;transform-origin:37.3px 37.3px}.blinky-inner{fill:#3ea3ff}@keyframes expanding{0%{transform:scale(0);opacity:1}100%{transform:scale(1.6);opacity:0;stroke:#3ea3ff;stroke-width:8px}}</style></def><circle class="blinky-outer" cx="37.3" cy="37.3" r="20.7" /><circle class="blinky-inner" cx="37.3" cy="37.3" r="20.7" /><path fill="white" d="m51.1 40.2 4.7 1.7.2-.9-4.3-1.4 4-2-.4-.8-4.1 1.9-8.1.2 7.4-3.7h6.1l-.1-1.1-4.4-.1 3.3-3.5-.7-.9-4.5 4.7-6.7.2 3.5-4.6 7.2-3.2-.7-1-7 2.7V23h-1.2l-.4 6.1-4 3.4-1.4-6 3-6.4-.9-.7-3.3 6.3-2.2-6-1.3.3 2.3 7.1-.5 5.5-4.1-4.2-1-7.9-1.3.2.9 7.7-5-3.9-1 1 5.7 4.2 3.6 5.3-7.4-3.1-3.6-5.8-.9.3 3.1 5.8-5.5-1.5-.5 1.1 6.2 1.9 6.3 4.8-7.5.3-5.5-4.5-.9 1.2 4.4 3.6-4.6.7V41l6.7-.6 6.9 2.2-3.9 13.2c2.9 1.5 6.2 2.3 9.6 2.3 3.7 0 7.2-.9 10.2-2.6l-3.7-13.1c-.1 0 7.3-2.2 7.3-2.2z" /></svg>`;
   const parser = new DOMParser();
   const pinSvg = parser.parseFromString(pinSvgString, "image/svg+xml")
@@ -642,9 +665,15 @@ async function initMap() {
     bounds.extend(position); // Extend the bounds to include each marker's position
     return marker;
   });
-  // Calculate the center of the map based on the bounds
+  // center the map based on the bounds
   map.fitBounds(bounds);
-  map.setZoom(map.getZoom() + .5);
+  // Add an event listener for when the map has finished loading
+  google.maps.event.addListenerOnce(map, "tilesloaded", () => {
+    setTimeout(() => {
+      map.panBy(0, -32); // offset for marker height
+      map.setZoom(map.getZoom() + 0.55); // dezoom zoom slightly
+    }, 150);
+  });
   // Add a marker clusterer to manage the markers.
   const MarkerClusterer = new markerClusterer.MarkerClusterer({ markers, map });
 } // end initMap()
